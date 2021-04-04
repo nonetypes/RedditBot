@@ -1,14 +1,18 @@
 # Functions for MetalGearQuoteBot
 # quote_reply, match_quote, get_all_comments, get_replies
+# Last revised on 04/03/2021
 
 from quotes import quotes, triggers
+from json import loads, dumps
 from random import choice
+from difflib import SequenceMatcher
+from praw.models import MoreComments
 
 
 def quote_reply(comment, quote_triggers):
     """Attempt to match quote_trigger terms to a comment. Not case sensitive.
 
-    Collect multiple quotes in the event that theree are multiple trigger terms
+    Collect multiple quotes in the event that there are multiple trigger terms
     within a comment. Return one of the quotes at random.
 
     Returns a tuple of (quote_name, quote), or returns None if no matches were found.
@@ -39,7 +43,6 @@ def match_quote(quote):
             return key
     return None
 
-
 def get_all_comments(submission, verbose=False):
     """Collect every comment in a submission.
     Used with get_replies()
@@ -49,7 +52,9 @@ def get_all_comments(submission, verbose=False):
     comments = submission.comments
     comments_list = []
     for comment in comments:
-        get_replies(comment, comments_list, verbose=verbose)
+        # This is to ignore comments hiding in the "load more comments" button.
+        if not isinstance(comment, MoreComments):
+            get_replies(comment, comments_list, verbose=verbose)
 
     return comments_list
 
@@ -70,7 +75,61 @@ def get_replies(comment, all_comments, verbose=False):
 
     # Recursion. Get to the bottom of the comment tree.
     for child in replies:
-        get_replies(child, all_comments, verbose=verbose)
+        # This is to ignore comments hiding in the "load more comments" button.
+        if not isinstance(child, MoreComments):
+            get_replies(child, all_comments, verbose=verbose)
+
+
+def record_comment(parent, reply, subreddit, submission, quote_name, history):
+    """Record comment information in history.json
+    """
+    history['parents'].append(parent.id)
+    history['subreddits'][subreddit.display_name]['parents'].append(parent.id)
+    # Record info of reply made by bot.
+    if reply is not None:
+        history['subreddits'][subreddit.display_name]['comments'].append(reply.id)
+        history['subreddits'][subreddit.display_name]['trigger_holds'][quote_name] = reply.created_utc
+        history['comments'][reply.id] = {'name': quote_name, 'time': reply.created_utc,
+                                        'subreddit': subreddit.display_name,
+                                        'submission': submission.id, 'parent': parent.id}
+    save_history(history)
+
+
+def load_history():
+    """Attempt to load ignore/history.json as a dictionary then return it.
+
+    If a FileNotFoundError is encountered, a blank history dictionary will be returned.
+
+    Any other error encountered will return None.
+    """
+    try:
+        history = loads(open('ignore/history.json', 'r').read())
+    except FileNotFoundError:
+        print('ERROR: ignore/history.json not found')
+        print('Creating new history...')
+        return {"subreddits": {}, "comments": {}, "parents": []}
+    except Exception as error:
+        print(f'ERROR: Could not load history.json -- {error}')
+        return None
+    else:
+        return history
+
+
+def save_history(history):
+    """Write the given history dictionary to ignore/history.json as a json object.
+    """
+    with open('ignore/history.json', 'w') as stream:
+        stream.write(dumps(history))
+
+
+def similar_strings(string1, string2):
+    """Tests the similarity between two strings.
+
+    Returns a ratio, representing a percentage of similarity.
+
+    https://stackoverflow.com/a/17388505
+    """
+    return SequenceMatcher(None, string1, string2).ratio()
 
 
 if __name__ == '__main__':
