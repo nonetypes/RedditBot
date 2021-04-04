@@ -1,6 +1,7 @@
 # Quote related dictionaries for MetalGearQuoteBot
 # quotes, triggers
-#
+# Last Revised on 4/02/2021
+
 # Quotes are sourced from:
 # http://junkerhq.net/dumps.html
 # https://gamefaqs.gamespot.com/msx/578853-metal-gear/faqs/30618
@@ -8,6 +9,7 @@
 # https://gamefaqs.gamespot.com/ps/197909-metal-gear-solid/faqs/26783
 # https://www.ign.com/faqs/2005/metal-gear-solid-2-son-of-liberty-premium-package-game-script-538904
 # https://www.neoseeker.com/mgs3/faqs/134223-metal-gear-solid-3-sub-script.html
+# https://metalgear.fandom.com/wiki/Metal_Gear_Solid_3_radio_conversations
 
 # Collection of quotes to be used from the Metal Gear series.
 # These should be organized by game and in subcategories for easier navigation.
@@ -51,7 +53,7 @@ quotes = {
           'I call it stalking. Here\'s how you do it. First, put your weight on the opposite foot that '
           'you\'re going to step with. Then take a step so that your heel makes contact with the ground first. '
           'Then as you slowly lower the tip of your foot to the floor, gradually shift your weight onto that foot. '
-          'Use your knees to maintain the subtle balance. Try it. '
+          'Use your knees to maintain the subtle balance. Try it.\n\n'
           'Another way is to wear your socks over your shoes...',
 
           # MGS1: Misc.
@@ -224,6 +226,69 @@ quotes = {
           'life... You gain something only to lose something else. It\'s up '
           'to you to decide where and when you want to use it.',
 
+          # Metal Gear Solid 3: Snake Eater
+          #
+
+          # MGS3: Bosses
+          'the_end': 'I beg of you, grant me the strength to take this final prey. Let me '
+          'linger in this world just a little longer. I have already slept enough '
+          'for one lifetime... enough for an eternity. You have my thanks. I '
+          'have to thank you... for waking me. If you hadn\'t shown up, my '
+          'sleep... would have been eternal. Do you hear me, Snake? I am The '
+          'End! I am here to send you to your ultimate fate! You\'ll make a fine '
+          'quarry for my final hunt!',
+
+          'the_fury': 'I am The Fury! The flames of my rage will incinerate you! I came '
+          'back from space. As I returned, I had one vision — the world set '
+          'ablaze. And do you know what I saw there? Fury. A great and terrible '
+          'fury at being alive. Now — you\'re going to feel the scorching heat '
+          'of that terrible blackness!',
+
+          'the_sorrow': 'Sad... so sad... A host of sorrows... And you are one of them... '
+          'I am The Sorrow. Like you, I, too, am filled with sadness. This '
+          'world is one of sandess... Battle brings death. Death brings '
+          'sorrow. The living... may not hear them. Their voices... may '
+          'fall upon deaf ears. But make no mistake... the dead... are '
+          'not silent. Now you will know the sorow of those whose lives you '
+          'have ended.',
+
+          'the_pain': 'I\'ve caught you at last. We are the sons of The Boss. ...I am The '
+          'Pain... I will guide you to a world of anguish beyond your '
+          'imagination... Let\'s get started!',
+
+          'the_fear': 'I am The Fear... That bolt is coated with the venom of the Brazilian '
+          'Wandering Spider. Soon a most exquisite pain will engulf your entire '
+          'body. Your limbs will be paralyzed, your lungs cease to draw breath, '
+          'eventually your heart will stop beating. Ah, but what fun would that '
+          'be? Not a fitting death at all. The Boss\'s apprentice... I will give '
+          'you fear such as you\'ve never experienced before. Come into my web... '
+          'It is time... for you to feel the fear!',
+
+          # MGS3: Major Zero
+          'halo_jump': 'Yes, it\'s true. HALO stands for High Altitude, Low Opening. It\'s a '
+          'jump technique developed for covert insertions into enemy territory, just like the area '
+          'you\'re in. A plane flies at 10,0000 feet or above to avoid detection by ground forces, and '
+          'the jumper free falls until he\'s within a 1000 foot altitude above the target area, when he '
+          'finally opens his chute. By using this technique, the chances of revealing the parachute landing '
+          'to the enemy are marginal.\n\nThe HALO technique was originally developed in France. This was partly '
+          'due to popularity of parachuting as a sport since the end of World War II. And The Boss was an '
+          'instructor for the research that was carried out there. In 1957 at the JFK Special Operations '
+          'Center at Fort Bragg, The Boss was invited to instruct at the first ever U.S. Military HALO School. '
+          'Of course, none of this is on the record. But she\'s the mother of modern-day special forces.',
+
+          'space_race': 'In 1957, the Soviet Union succeeded in launching their first '
+          'artificial satellite, Sputnik, into orbit. Having been beaten to the chase by the '
+          'Soviets, the U.S. government accelerated its own space program in an effort to catch up.\n\n'
+          'The following year, the space development programs of the various service branches were '
+          'united to form the National Aeronautics and Space Administration, or NASA. That same year, '
+          'the Mercury program was launched with the goal of putting a man into space. Seven candidates '
+          'were chosen from the military as the first astronauts. These were the men with the "right stuff."\n\n'
+          'But as you know, it was a Soviet cosmonaut, Yuri Gagarin, who made the first successful manned '
+          'space flight three years ago. NASA\'s first successful ballistic flight came one month after '
+          'Gagarin\'s mission, with the Freedom 7 carrying Alan Shepherd into space. After that, with '
+          'America still lagging behind the Soviets in orbital flight, President Kennedy made a momentous '
+          'decision. That America would put a man on the moon before the end of the decade.',
+
           # Multiple Quotes
           'cardboard_box':
           ['The cardboard box that you have is ideal for fooling your '
@@ -268,7 +333,7 @@ quotes = {
 # Quote names should always be unique.
 # Be mindful of trigger terms like "ration" which would be matched with words like "frustration"
 # Keep triggers in lowercase.
-triggers = {'achilles': ['achilles'],
+triggers = {'achilles': ['achilles', ' paris ', ' paris.', ' paris,'],
             'bandage': ['bandage'],
             'bathroom': ['women\'s bathroom', 'lady\'s room'],
             'binoculars': ['binoculars'],
@@ -288,19 +353,26 @@ triggers = {'achilles': ['achilles'],
             'full_stomach': ['full stomach', 'ate a lot', 'ate too much'],
             'gas_mask': ['gas mask'],
             'greedy': ['i\'m too greedy', 'i\'m greedy', 'i\'m very greedy', 'i need more items'],
+            'halo_jump': ['halo jump'],
             'help': ['i don\'t need your help', 'i don\'t need help', 'i don\'t want your help', 'i don\'t want help'],
             'mono_tv': ['no stereo', 'monophonic', 'i don\'t have stereo', 'mono vs'],
             'muskateers': ['three muskateers', 'all for one and one for all', 'one for all, all for one'],
             'night_vision': ['night vision goggles'],
             'philanthropy': ['philanthropy'],
-            'psycho': ['psychokinetic', 'telekinesis', 'psychic', 'psycho mantis'],
+            'psycho': ['psychokinetic', 'telekinesis', 'telekinetic', 'psychic', 'psycho mantis'],
             'rations': [' ration ', ' ration.', ' ration,', ' rations ', ' rations.', ' rations,'],
             'scissors': ['i need scissors', 'tuning fork'],
             'sensor': ['sensor'],
             'smoking': ['cigarette'],
-            'sneaking': ['sneaking', 'stealthy', 'stalking', 'socks over your shoes'],
+            'sneaking': ['sneaking', 'stealthy', 'stalking', 'socks over your shoes', 'socks on shoes'],
+            'space_race': ['space race', 'sputnik'],
             'study': ['a hundred leagues', 'hate studying', ' don\'t want to study', 'tired of studying',
                       'sick of studying', 'i hate math', 'math is dumb', 'math is stupid', 'math sucks',
                       'i don\'t like math', 'i really don\'t like math'],
+            'the_end': ['this is the end', 'the end boss'],
+            'the_fear': ['the fear'],
+            'the_fury': ['the fury'],
+            'the_pain': ['the pain'],
+            'the_sorrow': ['the sorrow'],
             'thermal': ['thermal goggles'],
             }
