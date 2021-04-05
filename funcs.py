@@ -1,12 +1,31 @@
 # Functions for MetalGearQuoteBot
-# quote_reply, match_quote, get_all_comments, get_replies
-# Last revised on 04/03/2021
+# get_reddit, quote_reply, match_quote, get_all_comments, get_replies,
+# load_history, save_history, record_comment, similar_strings
+# Last revised on 04/04/2021
 
 from quotes import quotes, triggers
 from json import loads, dumps
 from random import choice
 from difflib import SequenceMatcher
+from praw import Reddit
 from praw.models import MoreComments
+
+
+def get_reddit():
+    """Create and return a praw.Reddit object for doing reddit things.
+
+    Bot account credentials are kept in a json object in separate
+    folder and NOT uploaded to github.
+    """
+    bot_info = loads(open('ignore/bot_info.json', 'r').read())
+
+    reddit = Reddit(client_id=bot_info['client_id'],
+                    client_secret=bot_info['client_secret'],
+                    username=bot_info['username'],
+                    password=bot_info['password'],
+                    user_agent=bot_info['user_agent'])
+
+    return reddit
 
 
 def quote_reply(comment, quote_triggers):
@@ -42,6 +61,7 @@ def match_quote(quote):
         if quote in val:
             return key
     return None
+
 
 def get_all_comments(submission, verbose=False):
     """Collect every comment in a submission.
@@ -80,21 +100,6 @@ def get_replies(comment, all_comments, verbose=False):
             get_replies(child, all_comments, verbose=verbose)
 
 
-def record_comment(parent, reply, subreddit, submission, quote_name, history):
-    """Record comment information in history.json
-    """
-    history['parents'].append(parent.id)
-    history['subreddits'][subreddit.display_name]['parents'].append(parent.id)
-    # Record info of reply made by bot.
-    if reply is not None:
-        history['subreddits'][subreddit.display_name]['comments'].append(reply.id)
-        history['subreddits'][subreddit.display_name]['trigger_holds'][quote_name] = reply.created_utc
-        history['comments'][reply.id] = {'name': quote_name, 'time': reply.created_utc,
-                                        'subreddit': subreddit.display_name,
-                                        'submission': submission.id, 'parent': parent.id}
-    save_history(history)
-
-
 def load_history():
     """Attempt to load ignore/history.json as a dictionary then return it.
 
@@ -122,6 +127,21 @@ def save_history(history):
         stream.write(dumps(history))
 
 
+def record_comment(parent, reply, subreddit, submission, quote_name, history):
+    """Record comment information in history.json
+    """
+    history['parents'].append(parent.id)
+    history['subreddits'][subreddit.display_name]['parents'].append(parent.id)
+    # Record info of reply made by bot.
+    if reply is not None:
+        history['subreddits'][subreddit.display_name]['comments'].append(reply.id)
+        history['subreddits'][subreddit.display_name]['trigger_holds'][quote_name] = reply.created_utc
+        history['comments'][reply.id] = {'name': quote_name, 'time': reply.created_utc,
+                                         'subreddit': subreddit.display_name,
+                                         'submission': submission.id, 'parent': parent.id}
+    save_history(history)
+
+
 def similar_strings(string1, string2):
     """Tests the similarity between two strings.
 
@@ -133,10 +153,12 @@ def similar_strings(string1, string2):
 
 
 if __name__ == '__main__':
-    comments = ['This won\'t trigger a quote', 'Math Sucks! I like cigarettes.',
-                'I bought some binoculars today.', 'I am looking forward to the Olympics.']
+    comments = ['This won\'t trigger a quote', 'Math Sucks! I like cigarettes.']
     for comment in comments:
         reply = quote_reply(comment, triggers)
         if reply is not None:
             print(f'Replying to "{comment}"')
             print(reply[1]+'\n')
+
+    history = load_history()
+    print(f'Comments Posted: {len(history["comments"].keys())}')

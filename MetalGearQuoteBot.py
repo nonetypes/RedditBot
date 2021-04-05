@@ -1,57 +1,53 @@
 # MetalGearQuoteBot by nonetypes
-# Last revised on 04/03/2021
-# A Reddit bot which replies to comments with an appropriate quote
-# from the Metal Gear series.
+# Last revised on 04/04/2021
+# A Reddit bot which replies to comments with an
+# (in)appropriate quote from the Metal Gear series.
 
-from funcs import (quote_reply, match_quote, get_all_comments,
+from funcs import (get_reddit, quote_reply, match_quote, get_all_comments,
                    load_history, record_comment, similar_strings)
 from quotes import triggers
-from json import loads
 from time import time
-from praw import Reddit
 
 # live should be True when ready to actually submit comments.
 # live should be False for testing purposes. i.e. Bot functions in every way
 # but will not submit replies. Used to see what would be replied to with what quote.
+# live = True
 live = False
 
 # List of subreddits to post in.
 subreddits = ['metalgearsolid', 'metalgear', 'gaming']
 
 # This is a list of usernames that this bot has posted under.
-# Keep these accurate to avoid quote spamming.
+# Keep these accurate to reduce quote spamming regardless of how
+# many people have or are using this bot.
 bot_user_names = ['MetalGearQuoteBot']
 
 # Keep track of stuff.
 history = load_history()
 
-# Bot account credentials are kept in a json object in separate folder and NOT uploaded to github.
-bot_info = loads(open('ignore/bot_info.json', 'r').read())
-
-reddit = Reddit(client_id=bot_info['client_id'],
-                client_secret=bot_info['client_secret'],
-                username=bot_info['username'],
-                password=bot_info['password'],
-                user_agent=bot_info['user_agent'])
+# Create praw.Reddit object using bot credentials from /ignore/bot_info
+reddit = get_reddit()
 
 
 for subreddit in subreddits:
-    # Create a new history submission for a new subreddit.
-    if subreddit not in history['subreddits'].keys():
-        history['subreddits'][subreddit] = {"comments": [], "parents": [], "trigger_holds": {}}
-
     subreddit = reddit.subreddit(subreddit)
-    # Limit submissions to the top ten hot page.
-    for submission in subreddit.hot(limit=10):
+
+    # Create a new history submission for a new subreddit.
+    if subreddit.display_name not in history['subreddits'].keys():
+        history['subreddits'][subreddit.display_name] = {'comments': [], 'parents': [], 'trigger_holds': {}}
+
+    # Limit submissions to the top x hot page.
+    top_num = 20
+    for submission in subreddit.hot(limit=top_num):
         # Get all comments in the submission.
         submission_comments = get_all_comments(submission)
         # Refresh triggers for each submission.
         quote_triggers = triggers.copy()
 
         # Don't post a quote in a subreddit if it was posted in the last x hours.
-        hours = 36
+        hours = 48
         for quote_name, time_posted in history['subreddits'][subreddit.display_name]['trigger_holds'].items():
-            if time() - time_posted <= (60 * 60 * hours):
+            if time() - time_posted <= (hours * 60 * 60):
                 quote_triggers[quote_name] = []
 
         # Check what quotes have already been posted in thread by bot so the
@@ -73,9 +69,10 @@ for subreddit in subreddits:
         # Walk through comments again, looking for comments to reply with a quote to.
         for comment in submission_comments:
             # Don't consider comments made by own bot, disregard comments which were already replied to,
-            # and don't reply to a comment that is older than 10 hours.
+            # and don't reply to a comment that is older than x hours.
+            hours = 10
             if (comment.author not in bot_user_names and comment.id not in do_not_reply
-                    and time() - comment.created_utc <= (8 * 60 * 60)):
+                    and time() - comment.created_utc <= (hours * 60 * 60)):
                 # Attempt to match a quote trigger to the comment.
                 mgs_quote = quote_reply(comment.body, quote_triggers)
                 if mgs_quote is not None:
@@ -88,7 +85,6 @@ for subreddit in subreddits:
                         if live:
                             reply = comment.reply(mgs_quote[1])
                             record_comment(comment, reply, subreddit, submission, mgs_quote[0], history)
-                            # comment.upvote()
                             print('Posted comment in ', end='')
                         else:
                             print('Would have posted to ', end='')
