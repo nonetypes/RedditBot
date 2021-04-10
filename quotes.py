@@ -1,6 +1,6 @@
 # Quote related dictionaries for MetalGearQuoteBot
 # quotes, triggers
-# Last Revised on 4/04/2021
+# Last Revised on 4/09/2021
 
 # Quotes are sourced from:
 # http://junkerhq.net/dumps.html
@@ -45,7 +45,10 @@ quotes = {
           'full_stomach': 'It\'s never a good idea to fight on too full a stomach. It\'ll make you groggy...'
           'maybe even sleepy. You should wait 30 minutes after eating before you play.',
 
-          'drowsy': 'After playing for a long time, you should get some rest too. People\'s reaction speed '
+          'drowsy': 'Soldiers that have been forged in the fires of battle are used to catching naps whenever '
+          'and wherever they can. There\'s a big difference between real soldiers and those kids who have '
+          'only been trained in VR simulators.\n\n'
+          'After playing for a long time, you should get some rest too. People\'s reaction speed '
           'is slowest around three o\'clock in the morning, and so is their judgment. '
           'If you\'re feeling drowsy, you should get some sleep.',
 
@@ -212,13 +215,6 @@ quotes = {
           'With outstanding absorption properties in terms of speed and '
           'capacity, bandages effectively stop bleeding.',
 
-          'binoculars': 'That pair of binoculars is a high-end military model with '
-          'auto-focus and zoom features. The binoculars will be particularly '
-          'useful when used outside the "Big Shell." If you can spot an '
-          'enemy in the distance at an early stage, it\'ll give you plenty of '
-          'time to do something. Scouting out the location of your enemy is '
-          'vital to the success of an infiltration mission.',
-
           'body_armor': 'I see you\'re wearing body armor. That\'s a great way to minimize '
           'damage. Your body armor is interwoven with a special fiber made '
           'from high-performance polymer materials. The special fiber '
@@ -326,6 +322,15 @@ quotes = {
           'combined with the throwing distance gives you a certain amount of '
           'tactical flexibility.',
 
+          'chaff_grenade': 'You\'re holding a chaff grenade — an electronic warfare weapon '
+          'designed to disrupt electronic equipment and jam transmissions. '
+          'Detonated with a small charge, the grenade releases chaff and a '
+          'miniature active jammer. The grenade should render electronic '
+          'equipment useless for a brief period of time. It\'s important to '
+          'note that radar and other equipment which you might have on hand '
+          'will also be affected. So be careful with the thing if you\'re '
+          'using electronic devices.',
+
           # Metal Gear Solid 3: Snake Eater
           #
 
@@ -389,60 +394,88 @@ quotes = {
           'America still lagging behind the Soviets in orbital flight, President Kennedy made a momentous '
           'decision. That America would put a man on the moon before the end of the decade.',
 
-          # Misc.
-          #
-
-          'enemy_alert': '!',
-
           # Cross Series -- Multiple quotes associated with the same triggers go here.
+          # One is chosen at random when a trigger is matched.
+
           'cardboard_box':
-          ['The cardboard box that you have is ideal for fooling your '
+          [
+           # MGS1: Naomi
+           # 'A cardboard box usually consists of a thin pasteboard with a corrugated paper center. '
+           # 'They are usually made of recycled paper. It was first invented in Europe over a hundred years ago. '
+           # 'It was originally used to absorb one\'s sweat when wearing hats. With the same amount of wood '
+           # 'to make one wooden box, you can make six or seven cardboard boxes. And since it\'s recyclable, '
+           # 'it\'s highly economical.\n\nIn addition, It is strong and easy to store. That\'s why it\'s widely '
+           # 'used for packing. But to avoid damaging weapons and other delicate instruments when shipping them, '
+           # 'they should be packed in stronger boxes, like... wood or something. Also, the crevices should '
+           # 'be filled with styrofoam to prevent them from moving around.',
+
+           # MGS2: Pliskin
+           'The cardboard box that you have is ideal for fooling your '
            'enemies. It\'s a very important tool for infiltration missions, of '
            'course. I can\'t begin to count the number of agents whose lives '
            'were saved by a cardboard box...',
 
-           'Look. I\'m not exaggerating when I say the success of your mission '
-           'hinges on how you use that cardboard box. But in the end, a '
-           'cardboard box is only made of paper. Handle it with care or it '
-           'won\'t be of much use to you. Y\'know... I\'ve lost a couple thanks '
-           'to you...',
+           # MGS2: Pliskin
+           # 'Look. I\'m not exaggerating when I say the success of your mission '
+           # 'hinges on how you use that cardboard box. But in the end, a '
+           # 'cardboard box is only made of paper. Handle it with care or it '
+           # 'won\'t be of much use to you. Y\'know... I\'ve lost a couple thanks '
+           # 'to you...',
 
+           # MGS2: Pliskin
            'Treat your cardboard box with care. Take '
            'care of the box and it\'ll take care of you... Don\'t think of it '
            'as just another box. Treat it with love... Don\'t be rough. Okay?',
 
-           'A cardboard box usually consists of a thin pasteboard with a corrugated paper center. '
-           'They are usually made of recycled paper. It was first invented in Europe over a hundred years ago. '
-           'It was originally used to absorb one\'s sweat when wearing hats. With the same amount of wood '
-           'to make one wooden box, you can make six or seven cardboard boxes. And since it\'s recyclable, '
-           'it\'s highly economical.\n\nIn addition, It is strong and easy to store. That\'s why it\'s widely '
-           'used for packing. But to avoid damaging weapons and other delicate instruments when shipping them, '
-           'they should be packed in stronger boxes, like... wood or something. Also, the crevices should '
-           'be filled with styrofoam to prevent them from moving around.',
-           
-           'Using the old cardboard box trick, huh? Looks good on you, Snake. '
-           'Camouflage is the best way to slip past enemy surveillance. But '
-           'cardboard is just paper when it comes down to it. It won\'t '
-           'withstand any serious assault for long. Don\'t rely on the trick '
-           'too many times, either. And I recommend you keep it dry.',],
+           # MGS2: Otakon
+           # 'Using the old cardboard box trick, huh? Looks good on you, Snake. '
+           # 'Camouflage is the best way to slip past enemy surveillance. But '
+           # 'cardboard is just paper when it comes down to it. It won\'t '
+           # 'withstand any serious assault for long. Don\'t rely on the trick '
+           # 'too many times, either. And I recommend you keep it dry.',
+            ],
 
           'smoking':
-          ['If you blow the smoke in the direction of the infra-red sensors, you should be able '
-           'to see them. That was a good idea bringing the cigarettes. But don\'t smoke too much. Cigarettes '
-           'make you weak, in mind and body. They are bad for you. Nuclear weapons, nuclear reactors, '
-           'hazardous waste... We\'re constantly being exposed to plutonium and other radioactive materials. '
-           'Compared to that, smoking seems not so bad, no?',
+          [
+           # MGS1: Naomi
+           # 'If you blow the smoke in the direction of the infra-red sensors, you should be able '
+           # 'to see them. That was a good idea bringing the cigarettes. But don\'t smoke too much. Cigarettes '
+           # 'make you weak, in mind and body. They are bad for you. Nuclear weapons, nuclear reactors, '
+           # 'hazardous waste... We\'re constantly being exposed to plutonium and other radioactive materials. '
+           # 'Compared to that, smoking seems not so bad, no?',
 
+           # MGS2: Pliskin
            'Those things\'ll stunt your growth and ruin your health. But in the '
            'battlefield, you\'ll find there\'s other uses for those cigarettes '
            'besides smoking. I\'m sure you\'ll figure out how to use \'em when '
            'the time comes...',
-           
+
+           # MGS2: Otakon
            'Snake, are you smoking? You really should quit. First of all, it '
            'turns you into an instant target in the dark. As for what it '
            'means to your health, I won\'t even go there. Remember what Naomi '
-           'said about lung cancer rates Everyone knows that it\'s a dangerous '
-           'substance.',],
+           'said about lung cancer rates. Everyone knows that it\'s a dangerous '
+           'substance.',
+            ],
+
+          'binoculars':
+          [
+           # MGS2: Pliskin
+           'That pair of binoculars is a high-end military model with '
+           'auto-focus and zoom features. The binoculars will be particularly '
+           'useful when used outside the "Big Shell." If you can spot an '
+           'enemy in the distance at an early stage, it\'ll give you plenty of '
+           'time to do something. Scouting out the location of your enemy is '
+           'vital to the success of an infiltration mission.',
+
+           # MGS3: The Boss
+           'I see you\'re using binoculars. The ones you\'ve got are a high performance '
+           'military model equipped with a zoom function. They\'re completely waterproof '
+           'and highly shock and flame-resistant. You won\'t need to worry about them '
+           'breaking. Scouting is the key during a sneaking mission. If you can determine '
+           'enemy positions and the lay of the land from a distance, it\'ll make your job '
+           'that much easier. Use them wisely.'
+           ],
           }
 
 # A dictionary of quote names which are associated with words/phrases to be looked for in comments.
@@ -456,10 +489,11 @@ triggers = {'achilles': ['achilles', ' paris ', ' paris.', ' paris,'],
             'bathroom': ['women\'s bathroom', 'lady\'s room'],
             'binoculars': ['binoculars'],
             'body_armor': ['body armor', 'bullet proof vest'],
-            'butt': ['my butt'],
-            'c4': [' c4', 'plastic explosive'],
+            'butt': ['my butt ', 'my butt,', 'my butt.', 'my butt!'],
+            'c4': [' c4 ', ' c4.', ' c4,', ' c4!', 'plastic explosive'],
             'camera': ['digital camera'],
             'cardboard_box': ['cardboard box', 'hide under a box', 'hiding under a box'],
+            'chaff_grenade': ['chaff grenade'],
             'chicken': ['chinese saying', 'chinese proverb', 'cows and aliens', 'alien abduction', 'abducted by aliens',
                         'chicken or cow', 'cow or chicken', 'chicken or beef', 'beef or chicken'],
             'classified': ['classified weapon'],
@@ -470,7 +504,6 @@ triggers = {'achilles': ['achilles', ' paris ', ' paris.', ' paris,'],
             'drowning': ['don\'t drown', 'avoid drowning', 'i can\'t swim'],
             'ear_pull': ['olympics', 'eskimo', 'ear pull', 'pull ear', 'pulling my ear',
                          'pulled my ear', 'vulcan raven'],
-            'enemy_alert': [],
             'fatman': ['fatman', 'fat man', 'manhattan project'],
             'froggy': ['froggy'],
             'full_stomach': ['full stomach', 'ate a lot', 'ate too much'],
@@ -497,12 +530,12 @@ triggers = {'achilles': ['achilles', ' paris ', ' paris.', ' paris,'],
             'space_race': ['space race', 'sputnik'],
             'study': ['a hundred leagues', 'hate studying', ' don\'t want to study', 'tired of studying',
                       'sick of studying', 'i hate math', 'math is dumb', 'math is stupid', 'math sucks',
-                      'i don\'t like math', 'i really don\'t like math'],
+                      'i don\'t like math', 'i really don\'t like math', 'i hate school', 'i don\'t like school'],
             'the_end': ['this is the end', 'the end boss', 'i am the end', 'the end sniper', 'sniper boss'],
             'the_fear': ['the fear'],
             'the_fury': ['the fury'],
             'time': ['what is time', 'daylight savings', 'meaning of time'],
-            'the_pain': ['the pain'],
+            'the_pain': ['the pain ', 'the pain.', 'the pain,', 'the pain!'],
             'the_sorrow': ['the sorrow', 'so sad ', 'so sad,', 'so sad.'],
             'thermal': ['thermal goggles'],
             'uniform': ['my uniform', 'my new uniform', 'the uniform ', 'the uniform.',
