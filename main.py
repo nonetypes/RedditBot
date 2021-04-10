@@ -6,7 +6,9 @@
 from classes import MetalGearQuoteBot
 from funcs import auto_function
 
-
+# Setting this to true will cause the bot to funciton in every way,
+# but it will not submit or delete comments.
+# i.e. Use to see what would be replied to with what quote.
 stealth_mode = True
 
 mg_quote_bot = MetalGearQuoteBot(stealth_mode)
